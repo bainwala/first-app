@@ -1,3 +1,8 @@
 body {
     background-color: bisque;
 }
+
+.set {
+    margin: 30px;
+    padding-bottom: 30px;
+}

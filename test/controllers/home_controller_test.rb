@@ -19,6 +19,6 @@ class HomeControllerTest < ActionDispatch::IntegrationTest
     get home_third_url
     assert_response :success
     assert_select "h1", "Poker"
-    assert_select "h1", "Welcome Himanshu!"
+    assert_select "h1", "Current Users!"
   end
 end

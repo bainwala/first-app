@@ -10,6 +10,6 @@ class HomeController < ApplicationController
   end
 
   def third
-    @users = UserDetail.find(1)
+    @users = UserDetail.all
   end
 end

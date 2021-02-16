@@ -1,9 +1,14 @@
-<h1>Welcome Himanshu!</h1>
+<h1>Current Users!</h1>
 <div class = "container">
     <div class = "row">
-        <div class = "col"> 
-            <h3><%=@users[:name]%></h3>
+    <% @users.each do |user| %>
+        <div class = "col set"> 
+            <h3>Username: <%=user[:username]%><h3>
+            <h3>Hands Won: <%=user[:wins]%></h3>
+            <h3>Hands Lost: <%=user[:losses]%></h3>
+            <h3>Current Tokens: <%=user[:current_tokens]%></h3>
         </div>
+    <% end %>
     </div>
 </div>
 
