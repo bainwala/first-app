@@ -1,0 +1,15 @@
+# Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  name: MyString
+  username: MyString
+  wins: 1
+  losses: 1
+  current_tokens: 1
+
+two:
+  name: MyString
+  username: MyString
+  wins: 1
+  losses: 1
+  current_tokens: 1
