@@ -1,0 +1,7 @@
+<h1>Enter Your Information</h1>
+<hr/>
+<%= form_for @user, url: home_new_path(@user) do |f| %>
+    Name: <%= f.text_field :name%> <br/>
+    Username: <%= f.text_field :username%> <br/>
+    <%= f.submit "Submit Details"%>
+<% end %>

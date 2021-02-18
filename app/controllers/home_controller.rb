@@ -12,4 +12,13 @@ class HomeController < ApplicationController
   def third
     @users = UserDetail.all
   end
+
+  def new 
+    @user = UserDetail.new
+  end
+
+  def create
+    @user = UserDetail.create(params.require(:user_detail).permit(:name, :username))
+    redirect_to root_path
+  end
 end
