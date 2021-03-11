@@ -1,8 +1,30 @@
 <%= stylesheet_link_tag "first"%>
-<div class = "Cards row"> 
-<% @cards.each do |c| %>
-    <div class = "col">
-        <img src = <%=c["image"]%> class="rounded float-left"/> 
-    </div>
+<div class = "Cards_Dealer row">
+<div class = "col">
+<% @cards_dealer.each do |c| %>
+    <img src = <%=c["image"]%> class="rounded float-left" width="140" height = "200"/> 
 <% end %>
 </div>
+</div>
+
+<div class = "Cards_Player row"> 
+<div class = "col">
+<% @cards_player.each do |c| %>
+    <img src = <%=c["image"]%> class="rounded float-left" width="140" height = "200"/> 
+<% end %>
+</div>
+<div class= "col">
+    <h1>CURRENT COUNT : <%=@count1%></h1>
+</div>
+</div>  
+<div class = "row hit">
+    <div class = "col"></div>
+    <div class = "col">
+        <%= link_to "HIT", "hit", class: "btn btn-warning btn-lg" %>
+    </div>
+    <div class = "col"></div>
+    <div class = "col">
+    <%= link_to "STAY", "stay", class: "btn btn-warning btn-lg" %>
+    </div>
+</div>
+
