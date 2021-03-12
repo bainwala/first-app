@@ -4,17 +4,20 @@
 <% @cards_dealer.each do |c| %>
     <img src = <%=c["image"]%> class="rounded float-left" width="140" height = "200"/> 
 <% end %>
+<h1 class = "count">COUNT : <%=@dealer_count%></h1>
 </div>
 </div>
-
+<div class = "row">
+    <div class = "col">
+        <h1 class = "message"><%=@message%></h1>
+    </div>
+</div>
 <div class = "Cards_Player row"> 
 <div class = "col">
 <% @cards_player.each do |c| %>
     <img src = <%=c["image"]%> class="rounded float-left" width="140" height = "200"/> 
 <% end %>
-</div>
-<div class= "col">
-    <h1>CURRENT COUNT : <%=@count1%></h1>
+<h1 class = "count">COUNT : <%=@player_count%></h1>
 </div>
 </div>  
 <div class = "row hit">

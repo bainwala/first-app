@@ -2,18 +2,20 @@
 class HomeController < ApplicationController 
 
   def first
-    session[:count] ||=0
+    
+    session[:playerCount] ||=0
+    session[:dealerCount] ||=0
     session[:initial] ||= 0 
     @@check = session[:initial]
     if @@check == 0
       deck_id
       initial_table
     end
-    @@count = session[:count]
-    @count1 = @@count
+    @message = @@message_value
+    @player_count = session[:playerCount]
+    @dealer_count = session[:dealerCount]
     @cards_dealer = @@card_dealer_json
     @cards_player = @@card_player_json
-    puts @cards_player
   end
 
   def second
@@ -39,8 +41,12 @@ class HomeController < ApplicationController
 
   
   def hit
-    get_card
-    get_count
+    if session[:playerCount] > 21
+      @@message_value = "BUSTED"
+    else
+      get_card
+      get_player_count
+    end
     redirect_to root_path
   end
 
@@ -52,13 +58,15 @@ class HomeController < ApplicationController
 
   private 
   def initial_table
+    @@message_value = ""
     card_dealer = RestClient.get "https://deckofcardsapi.com/api/deck/#{@@data["deck_id"]}/draw/?count=1"
     card_player = RestClient.get "https://deckofcardsapi.com/api/deck/#{@@data["deck_id"]}/draw/?count=2"
     dealer_json = JSON.parse card_dealer
     @@card_dealer_json = dealer_json["cards"]
     player_json = JSON.parse card_player
     @@card_player_json = player_json["cards"]
-    get_count
+    get_player_count
+    get_dealer_count
     session[:initial]+=1
     puts @@card_player_json
   end
@@ -72,19 +80,37 @@ class HomeController < ApplicationController
   end
 
   private 
-  def get_count
-    session[:count] = 0
+  def get_dealer_count
+    session[:dealerCount] = 0
+    @@card_dealer_json.each do |item|
+      if item["value"] == "JACK"
+        session[:dealerCount] += 10
+      elsif item["value"] == "KING"
+        session[:dealerCount] += 10
+      elsif item["value"] == "QUEEN"
+        session[:dealerCount] += 10
+      elsif item["value"] == "ACE"
+        session[:dealerCount] += 1
+      else
+      session[:dealerCount]+= item["value"].to_i
+      end
+    end
+  end
+
+  private 
+  def get_player_count
+    session[:playerCount] = 0
     @@card_player_json.each do |item|
       if item["value"] == "JACK"
-        session[:count] += 10
+        session[:playerCount] += 10
       elsif item["value"] == "KING"
-        session[:count] += 10
+        session[:playerCount] += 10
       elsif item["value"] == "QUEEN"
-        session[:count] += 10
+        session[:playerCount] += 10
       elsif item["value"] == "ACE"
-        session[:count] += 1
+        session[:playerCount] += 1
       else
-      session[:count]+= item["value"].to_i
+      session[:playerCount]+= item["value"].to_i
       end
     end
   end
