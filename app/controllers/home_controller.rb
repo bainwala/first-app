@@ -2,7 +2,7 @@
 class HomeController < ApplicationController 
 
   def first
-    
+
     session[:playerCount] ||=0
     session[:dealerCount] ||=0
     session[:initial] ||= 0 
@@ -10,6 +10,15 @@ class HomeController < ApplicationController
     if @@check == 0
       deck_id
       initial_table
+    end
+    if @@check == 2
+      if session[:playerCount] > session[:dealerCount]
+        @@message_value = "YOU DOUBLED UP!"
+      elsif session[:dealerCount] > session[:playerCount]
+        @@message_value = "YOU LOST!"
+      else
+        @@message_value = "TAKE YOUR MONEY BACK!"
+      end
     end
     @message = @@message_value
     @player_count = session[:playerCount]
@@ -36,6 +45,15 @@ class HomeController < ApplicationController
 
   def reset
     reset_session
+    redirect_to root_path
+  end
+
+  def start_dealer
+    while session[:dealerCount] < 17
+      get_dealer_card
+      get_dealer_count
+    end
+    session[:initial]+=1
     redirect_to root_path
   end
 
@@ -77,6 +95,14 @@ class HomeController < ApplicationController
     new_card_json = JSON.parse new_card
     new_card = new_card_json["cards"][0]
     @@card_player_json.push(new_card)
+  end
+
+  private
+  def get_dealer_card
+    new_card = RestClient.get "https://deckofcardsapi.com/api/deck/#{@@data["deck_id"]}/draw/?count=1"
+    new_card_json = JSON.parse new_card
+    new_card = new_card_json["cards"][0]
+    @@card_dealer_json.push(new_card)
   end
 
   private 
