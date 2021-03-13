@@ -32,3 +32,12 @@ body {
     padding-bottom: 35px;
 }
 
+.count {
+    font-family:Georgia, 'Times New Roman', Times, serif;
+}
+
+.message {
+    font-family: Georgia, 'Times New Roman', Times, serif;
+    align-content: center;
+}
+
