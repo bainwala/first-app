@@ -2,7 +2,7 @@
 class HomeController < ApplicationController 
 
   def first
-
+    reset_session
     session[:playerCount] ||=0
     session[:dealerCount] ||=0
     session[:initial] ||= 0 
