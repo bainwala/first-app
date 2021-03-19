@@ -11,8 +11,10 @@ class HomeController < ApplicationController
       initial_table
     end
     if @@check == 2
-      if session[:playerCount] > session[:dealerCount]
+      if session[:dealerCount] > 21
         @@message_value = "YOU DOUBLED UP!"
+      elsif session[:playerCount] > session[:dealerCount]
+          @@message_value = "YOU DOUBLED UP!"
       elsif session[:dealerCount] > session[:playerCount]
         @@message_value = "YOU LOST!"
       else
@@ -39,12 +41,12 @@ class HomeController < ApplicationController
 
   def create
     @user = UserDetail.create(params.require(:user_detail).permit(:name, :username))
-    redirect_to root_path
+    redirect_to "/first"
   end
 
   def reset
     reset_session
-    redirect_to root_path
+    redirect_to "/first"
   end
 
   def start_dealer
@@ -53,7 +55,7 @@ class HomeController < ApplicationController
       get_dealer_count
     end
     session[:initial]+=1
-    redirect_to root_path
+    redirect_to "/first"
   end
 
   
@@ -64,7 +66,7 @@ class HomeController < ApplicationController
       get_card
       get_player_count
     end
-    redirect_to root_path
+    redirect_to "/first"
   end
 
   private
